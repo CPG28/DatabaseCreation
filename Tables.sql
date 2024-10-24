@@ -25,7 +25,7 @@ CREATE TABLE constructors (
 CREATE TABLE raceFor (
     driverID INT REFERENCES drivers(driverID),
     constructorID INT REFERENCES constructors(constructorID),
-    PRIMARY KEY(driverID, constructorID)
+    PRIMARY KEY(driverID, constructorID),
 );
 
 CREATE TABLE races (
@@ -77,9 +77,9 @@ CREATE TABLE results (
 
 CREATE TABLE qualifyingResults (
     resultID INT PRIMARY KEY REFERENCES results(resultID),
-    q1Time NUMERIC,
-    q2Time NUMERIC,
-    q3Time NUMERIC,
+    q1Time TIME,
+    q2Time TIME,
+    q3Time TIME,
 );
 
 CREATE TABLE raceResults (
