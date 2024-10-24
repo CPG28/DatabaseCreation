@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Circuits {
     public static void main(String[] args) {
         try {
-            Scanner s = new Scanner(new File("circuits.csv"));
+            Scanner s = new Scanner(new File("CSVs/circuits.csv"));
             FileWriter f = new FileWriter("CircuitsInserts.sql");
             // first line with the column names
             s.nextLine();
