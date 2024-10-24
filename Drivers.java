@@ -7,17 +7,15 @@ import java.io.IOException;
 public class Drivers {
     public static void main(String[] args) {
         try {
-            Scanner s = new Scanner(new File("drivers.csv"));
+            Scanner s = new Scanner(new File("CSVs/drivers.csv"));
             FileWriter f = new FileWriter("DriversInserts.sql");
             // first line with the column names
             s.nextLine();
-            // TODO: dates are in "" and the "" need to be removed before inserting into DB (I think)
             String commandStart = "INSERT INTO drivers (driverNationality, driverNumber, driverFirstName, driverLastName, dob) VALUES(";
 
             while(s.hasNextLine()) {
-                // TODO: sometimes this isn't reading the whole line and the program is stopping?
                 String line = s.nextLine();
-                System.out.println(line);
+                // System.out.println(line);
                 String singleQuotesLine = line.replace('\"', '\'');
                 // System.out.println(singleQuotesLine);
                 String correctNullsLine = singleQuotesLine.replace("\\N", "null");
