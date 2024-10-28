@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Drivers {
     public static void main(String[] args) {
         try {
-            Scanner s = new Scanner(new File("CSVs/drivers.csv"));
+            Scanner s = new Scanner(new File("DatabaseCreation/CSVs/drivers.csv"));
             FileWriter f = new FileWriter("DriversInserts.sql");
             // first line with the column names
             s.nextLine();
