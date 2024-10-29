@@ -15,7 +15,7 @@ public class RaceFor {
         }
 
         try {
-            Scanner s = new Scanner(new File("DatabaseCreation/CSVs/results.csv"));
+            Scanner s = new Scanner(new File("CSVs/results.csv"));
             FileWriter f = new FileWriter("RaceForInserts.sql");
             // first line with the column names
             s.nextLine();

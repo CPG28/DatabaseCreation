@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Constructors {
         public static void main(String[] args) {
         try {
-            Scanner s = new Scanner(new File("DatabaseCreation/CSVs/constructors.csv"));
+            Scanner s = new Scanner(new File("CSVs/constructors.csv"));
             FileWriter f = new FileWriter("ConstructorsInserts.sql");
             // first line with the column names
             s.nextLine();

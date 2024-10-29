@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Drivers {
     public static void main(String[] args) {
         try {
-            Scanner s = new Scanner(new File("DatabaseCreation/CSVs/drivers.csv"));
+            Scanner s = new Scanner(new File("CSVs/drivers.csv"));
             FileWriter f = new FileWriter("DriversInserts.sql");
             // first line with the column names
             s.nextLine();
@@ -16,7 +16,8 @@ public class Drivers {
             while(s.hasNextLine()) {
                 String line = s.nextLine();
                 // System.out.println(line);
-                String singleQuotesLine = line.replace('\"', '\'');
+                String escapeSingleQuotes = line.replace("\'", "\'\'");
+                String singleQuotesLine = escapeSingleQuotes.replace('\"', '\'');
                 // System.out.println(singleQuotesLine);
                 String correctNullsLine = singleQuotesLine.replace("\\N", "null");
 
