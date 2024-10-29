@@ -1,5 +1,5 @@
 CREATE TABLE circuits (
-    circuitID INT PRIMARY KEY IDENTITY(1,1),
+    circuitID INT PRIMARY KEY,
     circuitAltitude NUMERIC NOT NULL,
     circuitLongitude NUMERIC NOT NULL,
     circuitLatitude NUMERIC NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE circuits (
 );
 
 CREATE TABLE drivers (
-    driverID INT PRIMARY KEY IDENTITY(1,1),
+    driverID INT PRIMARY KEY,
     driverNationality TEXT NOT NULL,
     driverNumber INT,
     driverFirstName TEXT NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE raceFor (
 );
 
 CREATE TABLE races (
-    raceID INT PRIMARY KEY IDENTITY(1,1),
+    raceID INT PRIMARY KEY,
     circuitID INT REFERENCES circuit(circuitID),
     season INT NOT NULL,
     raceNum INT NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE partakeIn (
 );
 
 CREATE TABLE driverStandings (
-    driverStandingID INT PRIMARY KEY IDENTITY(1,1),
+    driverStandingID INT PRIMARY KEY,
     raceID INT REFERENCES races(raceID),
     driverID INT REFERENCES drivers(driverID),
     standingsPos INT NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE driverStandings (
 );
 
 CREATE TABLE constructorStandings (
-    constructorStandingID INT PRIMARY KEY IDENTITY(1,1),
+    constructorStandingID INT PRIMARY KEY,
     raceID INT REFERENCES races(raceID),
     constructorID INT REFERENCES constructors(constructorID),
     standingsPos INT NOT NULL,
