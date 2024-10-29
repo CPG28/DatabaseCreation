@@ -12,7 +12,7 @@ public class Races {
             // first line with the column names
             s.nextLine();
 
-            String commandStart = "INSERT INTO races (circuitID, season, raceNum, raceName, raceDate) VALUES(";
+            String commandStart = "INSERT INTO races (raceID, circuitID, season, raceNum, raceName, raceDate) VALUES(";
 
             while (s.hasNextLine()) {
                 String line = s.nextLine();
@@ -20,7 +20,7 @@ public class Races {
 
                 String[] a = singleQuotesLine.split(",");
 
-                String commandEnd = a[3] + "," + a[1] + "," + a[2] + "," + a[4] + "," + a[5] + ");\n";
+                String commandEnd = a[0] + "," + a[3] + "," + a[1] + "," + a[2] + "," + a[4] + "," + a[5] + ");\n";
 
                 f.write(commandStart + commandEnd);
             }
