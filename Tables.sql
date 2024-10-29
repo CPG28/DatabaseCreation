@@ -17,7 +17,7 @@ CREATE TABLE drivers (
 );
 
 CREATE TABLE constructors (
-    constructorID INT PRIMARY KEY IDENTITY(1,1),
+    constructorID INT PRIMARY KEY,
     constructorName TEXT NOT NULL,
     constructorNationality TEXT NOT NULL
 );
