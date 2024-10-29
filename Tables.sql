@@ -33,7 +33,8 @@ CREATE TABLE races (
     circuitID INT REFERENCES circuit(circuitID),
     season INT NOT NULL,
     raceNum INT NOT NULL,
-    raceName TEXT NOT NULL
+    raceName TEXT NOT NULL,
+    raceDate DATE NOT NULL
 );
 
 CREATE TABLE raceIn (
