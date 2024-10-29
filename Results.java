@@ -72,8 +72,8 @@ public class Results {
                 // no qualifying time recorded
                 if(a[6].equals("null")) {
                     q1 = "null";
-                // qualifying time was >= 10 minutes and string is > 8 characters long, so don't append a 0 to minutes time
-                } else if(a[6].length() > 8) {
+                // qualifying time was >= 10 minutes and string is > 10 characters long, so don't append a 0 to minutes time
+                } else if(a[6].length() > 10) {
                     q1 = "\'00:" + a[6].substring(1);
                 // qualifying time was < 10 minutes, appending an extra 0 so it is '00:0M:SS.SS'
                 } else {
@@ -82,7 +82,7 @@ public class Results {
                 String q2;
                 if(a[7].equals("null")) {
                     q2 = "null";
-                } else if(a[7].length() > 8) {
+                } else if(a[7].length() > 10) {
                     q2 = "\'00:" + a[7].substring(1);
                 } else {
                     q2 = "\'00:0" + a[7].substring(1);
@@ -90,12 +90,12 @@ public class Results {
                 String q3;
                 if(a[8].equals("null")) {
                     q3 = "null";
-                } else if(a[8].length() > 8) {
+                } else if(a[8].length() > 10) {
                     q3 = "\'00:" + a[8].substring(1);
                 } else {
                     q3 = "\'00:0" + a[8].substring(1);
                 }
-                String qualyCommandEnd = q1 + "," + q2 + "," + q3 + ");\n";
+                String qualyCommandEnd = resultsCounter + "," + q1 + "," + q2 + "," + q3 + ");\n";
 
                 f.write(resultsCommandStart + resultsCommandEnd);
                 f.write(qualyCommandStart + qualyCommandEnd);
