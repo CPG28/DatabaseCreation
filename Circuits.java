@@ -12,7 +12,7 @@ public class Circuits {
             // first line with the column names
             s.nextLine();
             
-            String commandStart = "INSERT INTO circuits (circuitAltitude, circuitLongitude, circuitLatitude, circuitCountry, circuitName) VALUES(";
+            String commandStart = "INSERT INTO circuits (circuitID, circuitAltitude, circuitLongitude, circuitLatitude, circuitCountry, circuitName) VALUES(";
 
             while(s.hasNextLine()) {
                 String line = s.nextLine();
@@ -20,7 +20,7 @@ public class Circuits {
 
                 String[] a = singleQuotesLine.split(",");
                 
-                String commandEnd = a[7] + "," + a[6] + "," + a[5] + "," + a[4] + "," + a[2] + ");\n";
+                String commandEnd = a[0] + "," + a[7] + "," + a[6] + "," + a[5] + "," + a[4] + "," + a[2] + ");\n";
 
                 f.write(commandStart + commandEnd);
             }

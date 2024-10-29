@@ -11,7 +11,7 @@ public class Drivers {
             FileWriter f = new FileWriter("DriversInserts.sql");
             // first line with the column names
             s.nextLine();
-            String commandStart = "INSERT INTO drivers (driverNationality, driverNumber, driverFirstName, driverLastName, dob) VALUES(";
+            String commandStart = "INSERT INTO drivers (driverID, driverNationality, driverNumber, driverFirstName, driverLastName, dob) VALUES(";
 
             while(s.hasNextLine()) {
                 String line = s.nextLine();
@@ -22,7 +22,7 @@ public class Drivers {
 
                 String[] a = correctNullsLine.split(",");
                 
-                String commandEnd = a[7] + "," + a[2] + "," + a[4] + "," + a[5] + "," + a[6] + ");\n";
+                String commandEnd = a[0] + "," + a[7] + "," + a[2] + "," + a[4] + "," + a[5] + "," + a[6] + ");\n";
 
                 f.write(commandStart + commandEnd);
             }
