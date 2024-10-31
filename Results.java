@@ -17,7 +17,7 @@ public class Results {
             // column names
             races.nextLine();
             String resultsCommandStart = "INSERT INTO results (driverID, constructorID, raceID, finalPos, carNum) VALUES(";
-            String raceResultsCommandStart = "INSERT INTO raceResults (resultID, startPos, numPoints, raceTyep) VALUES(";
+            String raceResultsCommandStart = "INSERT INTO raceResults (resultID, startPos, numPoints, raceType) VALUES(";
             while(races.hasNextLine()) {
                 resultsCounter++;
                 String line = races.nextLine();

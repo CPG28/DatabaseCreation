@@ -12,7 +12,7 @@ public class ConstructorStandings {
             // first line with the column names
             s.nextLine();
             
-            String commandStart = "INSERT INTO constructorStandings (constructorStandingID, raceID, constructorID, standingsPos, numWins, totalPoints) VALUES(";
+            String commandStart = "INSERT INTO constructorStandings (constructorStandingID, raceID, constructorID, standingsPos, wins, totalPoints) VALUES(";
 
             while(s.hasNextLine()) {
                 String line = s.nextLine();

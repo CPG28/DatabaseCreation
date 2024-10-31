@@ -22,7 +22,7 @@ public class PartakeIn {
             int lastID = 0;
 
             
-            String commandStart = "INSERT INTO partakeIn (teamID, raceID) VALUES(";
+            String commandStart = "INSERT INTO partakeIn (constructorID, raceID) VALUES(";
             while(s.hasNextLine()) {
                 String line = s.nextLine();
                 String singleQuotesLine = line.replace('\"', '\'');

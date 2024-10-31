@@ -12,7 +12,7 @@ public class DriverStandings {
             // first line with the column names
             s.nextLine();
 
-            String commandStart = "INSERT INTO driverStandings (driverStandingID, raceID, driverID, standingsPos, numWins, totalPoints) VALUES(";
+            String commandStart = "INSERT INTO driverStandings (driverStandingID, raceID, driverID, standingsPos, wins, totalPoints) VALUES(";
 
             while (s.hasNextLine()) {
                 String line = s.nextLine();
