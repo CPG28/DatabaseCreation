@@ -18,7 +18,7 @@ public class RaceIn {
             FileWriter f = new FileWriter("RaceInInserts.sql");
             // first line with the column names
             s.nextLine();
-            int lastID = 0;
+            int largestID = 0;
 
             
             String commandStart = "INSERT INTO raceIn (driverID, raceID) VALUES(";
@@ -30,12 +30,14 @@ public class RaceIn {
                 
                 
                 Integer driverID = Integer.parseInt(a[2]);
-                lastID = driverID;
+                if(driverID > largestID){
+                    largestID = driverID;
+                }
                 Integer teamID = Integer.parseInt(a[1]);
                 driverRace[driverID].add(teamID);
                 
             }
-            for(int i = 1; i < lastID +1; i++){
+            for(int i = 1; i < largestID +1; i++){
                 for (Integer element : driverRace[i]) {
                     String commandEnd = i + ", " + element + ");\n";
                     f.write(commandStart + commandEnd);

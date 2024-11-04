@@ -31,7 +31,9 @@ public class PartakeIn {
                 
                 
                 Integer teamID = Integer.parseInt(a[3]);
-                lastID = teamID;
+                if(teamID > lastID){
+                    lastID = teamID;
+                }
                 Integer raceID = Integer.parseInt(a[1]);
                 teamRace[teamID].add(raceID);
                 

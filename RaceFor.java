@@ -31,7 +31,9 @@ public class RaceFor {
                 
                 
                 Integer driverID = Integer.parseInt(a[2]);
-                lastID = driverID;
+                if(driverID > lastID){
+                    lastID = driverID;
+                }
                 Integer teamID = Integer.parseInt(a[3]);
                 driverTeam[driverID].add(teamID);
                 
