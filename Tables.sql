@@ -1,3 +1,18 @@
+USE cs3380;
+
+DROP TABLE IF EXISTS raceResults;
+DROP TABLE IF EXISTS qualifyingResults;
+DROP TABLE IF EXISTS results;
+DROP TABLE IF EXISTS constructorStandings;
+DROP TABLE IF EXISTS driverStandings;
+DROP TABLE IF EXISTS partakeIn;
+DROP TABLE IF EXISTS raceIn;
+DROP TABLE IF EXISTS races;
+DROP TABLE IF EXISTS raceFor;
+DROP TABLE IF EXISTS constructors;
+DROP TABLE IF EXISTS drivers;
+DROP TABLE IF EXISTS circuits;
+
 CREATE TABLE circuits (
     circuitID INT PRIMARY KEY,
     circuitAltitude NUMERIC NOT NULL,
@@ -30,7 +45,7 @@ CREATE TABLE raceFor (
 
 CREATE TABLE races (
     raceID INT PRIMARY KEY,
-    circuitID INT REFERENCES circuit(circuitID) ON DELETE SET NULL,
+    circuitID INT REFERENCES circuits(circuitID) ON DELETE SET NULL,
     season INT NOT NULL,
     raceNum INT NOT NULL,
     raceName TEXT NOT NULL,
@@ -73,7 +88,7 @@ CREATE TABLE results (
     constructorID INT REFERENCES constructors(constructorID) ON DELETE CASCADE,
     raceID INT REFERENCES races(raceID) ON DELETE CASCADE,
     finalPos INT,
-    carNum INT NOT NULL
+    carNum INT
 );
 
 CREATE TABLE qualifyingResults (
