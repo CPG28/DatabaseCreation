@@ -1,11 +1,11 @@
 --circuits in northerhemishphere, ordered as the circuits get further north
---select circuitLatitude, circuitName from circuits where circuitLatitude > 0 order by circuitLatitude;
+-- select circuitLatitude, circuitName from circuits where circuitLatitude > 0 order by circuitLatitude;
 
 --circuits in southern hemisphere, ordered by closest to equator and getting furth away
---select circuitLatitude, circuitName from circuits where circuitLatitude < 0 order by circuitLatitude;
+-- select circuitLatitude, circuitName from circuits where circuitLatitude < 0 order by circuitLatitude;
 
---WDC winner each year, user input could be the year
--- SELECT
+-- --WDC winner each year, user input could be the year
+-- SELECT TOP X
 --     CAST(drivers.driverFirstName AS NVARCHAR(MAX)) AS driverFirstName, 
 --     CAST(drivers.driverLastName AS NVARCHAR(MAX)) AS driverLastName, 
 --     CAST(constructors.constructorName AS NVARCHAR(MAX)) AS teamName, 
@@ -21,7 +21,7 @@
 -- join
 --     constructors on results.constructorID = constructors.constructorID
 -- where 
---     races.season = 1955
+--     races.season = Y
 -- group BY
 --     CAST(drivers.driverFirstName AS NVARCHAR(MAX)),
 --     CAST(drivers.driverLastName AS NVARCHAR(MAX)),  
@@ -30,7 +30,7 @@
 --     totalPoints DESC;
 
 -- WCC winner each year, user input could be the year
--- SELECT
+-- SELECT TOP X
 --     CAST(constructors.constructorName AS NVARCHAR(MAX)) AS teamName, 
 --     sum(numPoints) as totalPoints
 -- FROM
@@ -42,13 +42,13 @@
 -- join
 --     constructors on results.constructorID = constructors.constructorID
 -- where 
---     races.season = 2016
+--     races.season = Y
 -- group BY
 --     CAST(constructors.constructorName AS NVARCHAR(MAX))
 -- order BY
 --     totalPoints DESC;
 
---Find a driver by first/last name + total races + total points + total wins + total pole positions 
+-- --Find a driver by first/last name + total races + total points + total wins + total pole positions 
 --  WITH raceNums AS (
 --     select drivers.driverID, count(*) as raceCount from drivers join results on drivers.driverID = results.driverID JOIN
 --     raceResults on results.resultID = raceResults.resultID where CAST(raceResults.raceType as NVARCHAR(MAX)) like 'GP' GROUP BY
@@ -95,10 +95,10 @@
 
 -- select driverFirstName, driverLastName, totalPoints, raceCount, winCount, poleCount from 
 -- pointCount join raceNums on pointCount.driverID = raceNums.driverID left join raceWins on raceNums.driverID = raceWins.driverID
--- left join polePositions on raceWins.driverID = polePositions.driverID
+-- left join polePositions on raceWins.driverID = polePositions.driverID where driverFirstName like "%X%" or driverLastName like "%X%"
 -- order by totalPoints DESC;
 
---races spent leading the championship in season by driver
+-- --races spent leading the championship in season by driver
 -- SELECT
 --     CAST(drivers.driverFirstName AS NVARCHAR(MAX)) AS driverFirstName, 
 --     CAST(drivers.driverLastName AS NVARCHAR(MAX)) AS driverLastName,
@@ -110,12 +110,12 @@
 -- JOIN
 --     races on driverStandings.raceID = races.raceID
 -- WHERE
---     driverStandings.standingsPos = 1 and races.season = 2008
+--     driverStandings.standingsPos = 1 and races.season = X
 -- GROUP BY
 --     CAST(drivers.driverFirstName AS NVARCHAR(MAX)), 
 --     CAST(drivers.driverLastName AS NVARCHAR(MAX));
 
--- races spent leading the championship in season by team
+-- -- races spent leading the championship in season by team
 -- SELECT
 --     CAST(constructors.constructorName AS NVARCHAR(MAX)) AS driverFirstName, 
 --     count(*) as RacesLeading
@@ -126,12 +126,12 @@
 -- JOIN
 --     races on constructorStandings.raceID = races.raceID
 -- WHERE
---     constructorStandings.standingsPos = 1 and races.season = 2022
+--     constructorStandings.standingsPos = 1 and races.season = X
 -- GROUP BY
 --     constructors.constructorID,
 --     CAST(constructors.constructorName AS NVARCHAR(MAX));
 
--- SELECT 
+-- SELECT TOP X
 --     d.driverID,
 --     d.driverFirstName,
 --     d.driverLastName,
