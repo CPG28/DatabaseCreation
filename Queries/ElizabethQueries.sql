@@ -52,14 +52,20 @@ WITH gpResults AS (
     WHERE CAST(raceType AS VARCHAR(255)) = 'GP'
 ),
 gpRaces as (
-    select raceID, finalPos from results
-    where driverID = 1
-    and resultID in ((select resultID from gpResults))
-)
-select COUNT(CASE WHEN gpRaces.finalPos = 1 THEN 1 END) as numWins from gpRaces
+    select driverID, raceID, finalPos from results
+    where resultID in (select resultID from gpResults)
+),
+driversWinsAtCircuit as (
+select driverID, COUNT(CASE WHEN gpRaces.finalPos = 1 THEN 1 END) as numWins from gpRaces
 join races on gpRaces.raceID = races.raceID
 join circuits on races.circuitID = circuits.circuitID
-where circuits.circuitID = 9;
+where circuits.circuitID = 9
+GROUP BY driverID
+having COUNT(CASE WHEN gpRaces.finalPos = 1 THEN 1 END) >= 1
+)
+select driverFirstName, driverLastName, numWins from drivers
+join driversWinsAtCircuit on drivers.driverID = driversWinsAtCircuit.driverID
+order by numWins desc;
 
 
 -- 6. number of wins for a constructor at a given circuit (or each circuit?)
@@ -69,14 +75,20 @@ WITH gpResults AS (
     WHERE CAST(raceType AS VARCHAR(255)) = 'GP'
 ),
 gpRaces as (
-    select raceID, finalPos from results
-    where constructorID = 131
-    and resultID in ((select resultID from gpResults))
-)
-select COUNT(CASE WHEN gpRaces.finalPos = 1 THEN 1 END) as numWins from gpRaces
+    select constructorID, raceID, finalPos from results
+    where resultID in (select resultID from gpResults)
+),
+constructorsWinsAtCircuit as (
+select constructorID, COUNT(CASE WHEN gpRaces.finalPos = 1 THEN 1 END) as numWins from gpRaces
 join races on gpRaces.raceID = races.raceID
 join circuits on races.circuitID = circuits.circuitID
-where circuits.circuitID = 9;
+where circuits.circuitID = 9
+GROUP BY constructorID
+having COUNT(CASE WHEN gpRaces.finalPos = 1 THEN 1 END) >= 1
+)
+select constructorName, numWins from constructors
+join constructorsWinsAtCircuit on constructors.constructorID = constructorsWinsAtCircuit.constructorID
+order by numWins desc;
 
 
 -- 7. average conversion rate of starting position to race win
@@ -96,9 +108,21 @@ order by startPos;
 
 
 
+-- standings after a certain race
 
 
+-- championship winners every year
+-- 1st in standings in last race
 
+select * from driverStandings;
+
+with racesRaced as (
+    select races.* from races join driverStandings on races.raceID = driverStandings.raceID
+)
+-- finalSeasonRaces as(
+    select raceID, season, max(raceNum) as finalRace from racesRaced
+    GROUP by season;
+),
 
 
 
