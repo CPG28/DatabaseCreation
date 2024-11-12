@@ -75,4 +75,19 @@ INNER JOIN
 INNER JOIN
     constructors ON results.constructorID = constructors.constructorID
 WHERE
-    results.raceID = 1131;
+    results.raceID = ?;
+
+-- GP results for a race
+SELECT
+    drivers.driverID, drivers.driverFirstName, drivers.driverLastName, constructors.constructorID, constructors.constructorName, results.finalPos, results.carNum, 
+    raceResults.startPos, raceResults.numPoints
+FROM
+    raceResults
+INNER JOIN
+    results ON raceResults.resultID = results.resultID
+INNER JOIN
+    drivers ON results.driverID = drivers.driverID
+INNER JOIN
+    constructors ON results.constructorID = constructors.constructorID
+WHERE
+    results.raceID = ? AND CONVERT(VARCHAR, raceResults.raceType) = 'GP';
