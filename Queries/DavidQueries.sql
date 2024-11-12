@@ -1,0 +1,151 @@
+--circuits in northerhemishphere, ordered as the circuits get further north
+-- select circuitLatitude, circuitName from circuits where circuitLatitude > 0 order by circuitLatitude;
+
+--circuits in southern hemisphere, ordered by closest to equator and getting furth away
+-- select circuitLatitude, circuitName from circuits where circuitLatitude < 0 order by circuitLatitude;
+
+-- --WDC winner each year, user input could be the year
+-- SELECT TOP X
+--     CAST(drivers.driverFirstName AS NVARCHAR(MAX)) AS driverFirstName, 
+--     CAST(drivers.driverLastName AS NVARCHAR(MAX)) AS driverLastName, 
+--     CAST(constructors.constructorName AS NVARCHAR(MAX)) AS teamName, 
+--     sum(numPoints) as totalPoints
+-- FROM
+--     drivers
+-- JOIN
+--     results on drivers.driverID = results.driverID
+-- JOIN
+--     raceResults on results.resultID = raceResults.resultID
+-- JOIN
+--     races on results.raceID = races.raceID
+-- join
+--     constructors on results.constructorID = constructors.constructorID
+-- where 
+--     races.season = Y
+-- group BY
+--     CAST(drivers.driverFirstName AS NVARCHAR(MAX)),
+--     CAST(drivers.driverLastName AS NVARCHAR(MAX)),  
+--     CAST(constructors.constructorName AS NVARCHAR(MAX))
+-- order BY
+--     totalPoints DESC;
+
+-- WCC winner each year, user input could be the year
+-- SELECT TOP X
+--     CAST(constructors.constructorName AS NVARCHAR(MAX)) AS teamName, 
+--     sum(numPoints) as totalPoints
+-- FROM
+--     results
+-- join
+--     raceResults on raceResults.resultID = results.resultID
+-- JOIN
+--     races on results.raceID = races.raceID
+-- join
+--     constructors on results.constructorID = constructors.constructorID
+-- where 
+--     races.season = Y
+-- group BY
+--     CAST(constructors.constructorName AS NVARCHAR(MAX))
+-- order BY
+--     totalPoints DESC;
+
+-- --Find a driver by first/last name + total races + total points + total wins + total pole positions 
+--  WITH raceNums AS (
+--     select drivers.driverID, count(*) as raceCount from drivers join results on drivers.driverID = results.driverID JOIN
+--     raceResults on results.resultID = raceResults.resultID where CAST(raceResults.raceType as NVARCHAR(MAX)) like 'GP' GROUP BY
+--     drivers.driverID
+-- ),
+
+-- pointCount as(
+--     SELECT
+--         CAST(drivers.driverFirstName AS NVARCHAR(MAX)) AS driverFirstName, 
+--         CAST(drivers.driverLastName AS NVARCHAR(MAX)) AS driverLastName, 
+--         sum(numPoints) as totalPoints,
+--         drivers.driverID
+--     FROM
+--         drivers
+--     JOIN
+--         results on drivers.driverID = results.driverID
+--     JOIN
+--         raceResults on results.resultID = raceResults.resultID
+--     JOIN
+--         races on results.raceID = races.raceID
+--     join
+--         constructors on results.constructorID = constructors.constructorID
+--     group BY
+--         CAST(drivers.driverFirstName AS NVARCHAR(MAX)),
+--         CAST(drivers.driverLastName AS NVARCHAR(MAX)),
+--         drivers.driverID  
+-- ),
+
+-- raceWins as(
+--     select drivers.driverID, count(*) as winCount from drivers join results on drivers.driverID = results.driverID JOIN
+--     raceResults on results.resultID = raceResults.resultID where CAST(raceResults.raceType as NVARCHAR(MAX)) like 'GP' and 
+--     results.finalPos = 1
+--     GROUP BY
+--     drivers.driverID
+-- ),
+
+-- polePositions as(
+--     select drivers.driverID, count(*) as poleCount from drivers join results on drivers.driverID = results.driverID JOIN
+--     qualifyingResults on results.resultID = qualifyingResults.resultID where
+--     results.finalPos = 1
+--     GROUP BY
+--     drivers.driverID
+-- )
+
+-- select driverFirstName, driverLastName, totalPoints, raceCount, winCount, poleCount from 
+-- pointCount join raceNums on pointCount.driverID = raceNums.driverID left join raceWins on raceNums.driverID = raceWins.driverID
+-- left join polePositions on raceWins.driverID = polePositions.driverID where driverFirstName like "%X%" or driverLastName like "%X%"
+-- order by totalPoints DESC;
+
+-- --races spent leading the championship in season by driver
+-- SELECT
+--     CAST(drivers.driverFirstName AS NVARCHAR(MAX)) AS driverFirstName, 
+--     CAST(drivers.driverLastName AS NVARCHAR(MAX)) AS driverLastName,
+--     count(*) as RacesLeading
+-- FROM
+--     drivers
+-- JOIN
+--     driverStandings on drivers.driverID = driverStandings.driverID
+-- JOIN
+--     races on driverStandings.raceID = races.raceID
+-- WHERE
+--     driverStandings.standingsPos = 1 and races.season = X
+-- GROUP BY
+--     CAST(drivers.driverFirstName AS NVARCHAR(MAX)), 
+--     CAST(drivers.driverLastName AS NVARCHAR(MAX));
+
+-- -- races spent leading the championship in season by team
+-- SELECT
+--     CAST(constructors.constructorName AS NVARCHAR(MAX)) AS driverFirstName, 
+--     count(*) as RacesLeading
+-- FROM
+--     constructors
+-- JOIN
+--     constructorStandings on constructors.constructorID = constructorStandings.constructorID
+-- JOIN
+--     races on constructorStandings.raceID = races.raceID
+-- WHERE
+--     constructorStandings.standingsPos = 1 and races.season = X
+-- GROUP BY
+--     constructors.constructorID,
+--     CAST(constructors.constructorName AS NVARCHAR(MAX));
+
+-- SELECT TOP X
+--     d.driverID,
+--     d.driverFirstName,
+--     d.driverLastName,
+--     r.raceName,
+--     r.raceDate,
+--     DATEDIFF(YEAR, d.dob, r.raceDate) AS ageAtWin
+-- FROM 
+--     drivers d
+-- JOIN 
+--     results res ON d.driverID = res.driverID
+-- JOIN 
+--     races r ON res.raceID = r.raceID
+-- WHERE 
+--     res.finalPos = 1
+-- ORDER BY 
+--     ageAtWin ASC, 
+--     r.raceDate ASC; 
