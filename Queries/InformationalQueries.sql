@@ -90,4 +90,4 @@ INNER JOIN
 INNER JOIN
     constructors ON results.constructorID = constructors.constructorID
 WHERE
-    results.raceID = ? AND CONVERT(VARCHAR, raceResults.raceType) = 'GP';
+    results.raceID = ? AND CONVERT(VARCHAR, raceResults.raceType) = ?;
