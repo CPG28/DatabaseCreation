@@ -122,7 +122,7 @@ with racesRaced as (
 -- finalSeasonRaces as(
     select raceID, season, max(raceNum) as finalRace from racesRaced
     GROUP by season;
-),
+
 
 
 
